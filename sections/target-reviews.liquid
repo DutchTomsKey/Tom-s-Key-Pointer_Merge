@@ -1,0 +1,223 @@
+{% schema %}
+  {
+    "name": "Target Reviews",
+    "tag": "section",
+    "settings": [],
+     "presets": [
+        {
+          "name": "Target Reviews"
+        }
+     ]
+  }
+{% endschema %}
+
+<style>
+  .container {
+    margin-top: 30px;
+    margin-bottom: 60px;
+  }
+  
+  .target-reviews {
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0px 1px 14px #00000014;
+  }
+
+  .target-reviews .left {
+    grid-area: total;
+    background: rgb(35,35,76);
+    background: linear-gradient(0deg, #487694 0%, rgba(110,204,223,1) 100%);
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .target-reviews .left [data="review-avg"] {
+    font-size: 120px;
+    font-family: 'Barlow';
+    font-weight: 700;
+  }
+
+  .target-reviews .left .avg-words {
+    width: 230px;
+    margin: auto;
+  }
+
+  .target-reviews .left .review-btn button {
+    background: #fff;
+    color: #000;
+    padding: 7px 30px;
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+
+  .target-reviews .right .review-item {
+    margin-bottom: 30px;
+  }
+
+  .target-reviews .right {
+    grid-area: items;
+  }
+
+  .target-reviews .right .review-items h3 {
+    color: #23234C;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .target-reviews .right .review-items .content {
+    color: #23234C;
+    font-size: 14px;
+  }
+
+  span.star-icon {
+    font-size: 25px;
+    color: #3fc6d8;
+    position: relative;
+  }
+
+  span.star-icon.full:before {
+    color: #3fc6d8;
+    content: '\2605'; /* Full star in UTF-8 */
+    position: absolute;
+    left: 0;
+  }
+  
+  span.star-icon.half:before {
+    color: #3fc6d8;
+    content: '\2605'; /* Full star in UTF-8 */
+    position: absolute;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+  }
+
+  .item-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .item-footer .date {
+    text-align: right;
+  }
+</style>
+
+<div class="container">
+  <div class="target-reviews row gx-5">
+  
+    <div class="left col-lg-4 mb-5 mb-lg-0">
+      <div class="review-avg">
+        <div class="avg"><span data="review-avg"></span><span>/5.0</span></div>
+        <div class="avg-words"><span>This product is rated </span><span data="review-avg-words"></span><span> of 5.0 stars. It has </span><span data="review-avg-count"></span><span> reviews.</span></div>
+        <div class="review-btn d-none"><button>LEAVE A REVIEW</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="right col-lg-8">
+      <div class="review-items">
+        <div class="review-item item-1" style="display: none;">
+          <div class="stars">
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+          </div>
+          <div class="title">
+            <h3></h3>
+          </div>
+          <div class="content"></div>
+          <div class="author"></div>
+          <div class="item-footer">
+            <div class="report"></div>
+            <div class="date"></div>
+          </div>
+        </div>
+        <div class="review-item item-2" style="display: none;">
+          <div class="stars">
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+            <span class="star-icon">☆</span>
+          </div>
+          <div class="title">
+            <h3></h3>
+          </div>
+          <div class="content"></div>
+          <div class="author"></div>
+          <div class="item-footer">
+            <div class="report"></div>
+            <div class="date"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+    <script>
+      fetch('https://api.juniphq.com/v1/store_reviews?include=customer', {
+        method: 'GET',
+        headers: {
+            'Junip-Store-Key': 'krAHMAjdv61DwHnAFxLwXHs5'
+        }
+      }).then(function (response) {
+        console.log('response',response);
+          // The API call was successful!
+          if (response.ok) {
+              return response.json();
+          } else {
+              return Promise.reject(response);
+          }
+      }).then(function (data) {
+          // This is the JSON from our response
+          console.log("Product Reviews",data.store_reviews);
+          var sum = 0;
+          data.store_reviews.forEach(function(currVal, idx){
+            sum += currVal.rating;
+          });
+          var avg = sum / data.store_reviews.length;
+          document.querySelector('[data="review-avg"]').innerHTML = avg;
+          document.querySelector('[data="review-avg-words"]').innerHTML = avg;
+          document.querySelector('[data="review-avg-count"]').innerHTML = data.store_reviews.length;
+
+          let rating_average_0 = data.store_reviews[0].rating;
+          for(let i = 0; i < rating_average_0; i++) {
+            document.querySelector('.review-items .item-1 .stars .star-icon:nth-child(' + (i + 1) + ')').classList.add(
+              ( (i+1) < rating_average_0 ? "full" : ( (rating_average_0 - i) > 0 && (rating_average_0 - i) < 1 ) ? "half" : "full" )
+            );
+          }
+          //document.querySelector('.review-items .item-1 .stars').innerHTML = data.store_reviews[0].rating;
+          document.querySelector('.review-items .item-1 .title h3').innerHTML = data.store_reviews[0].title;
+          document.querySelector('.review-items .item-1 .content').innerHTML = data.store_reviews[0].body;
+          document.querySelector('.review-items .item-1 .author').innerHTML = "-" + data.store_reviews[0].customer.first_name + " " + data.store_reviews[0].customer.last_name;
+          document.querySelector('.review-items .item-1 .report').innerHTML = "";
+          var item1Date = new Date(data.store_reviews[0].created_at);
+          var item1DateArr = item1Date.toDateString().split(' ');
+          document.querySelector('.review-items .item-1 .date').innerHTML = item1DateArr[1] + ' ' + item1DateArr[2] + ',' + item1DateArr[3];
+          document.querySelector('.review-items .item-1').style.display = "block";
+
+          let rating_average_1 = data.store_reviews[1].rating;
+          for(let i = 0; i < rating_average_0; i++) {
+            document.querySelector('.review-items .item-2 .stars .star-icon:nth-child(' + (i + 1) + ')').classList.add(
+              ( (i+1) < rating_average_1 ? "full" : ( (rating_average_1 - i) > 0 && (rating_average_1 - i) < 1 ) ? "half" : "full" )
+            );
+          }
+          //document.querySelector('.review-items .item-2 .stars').innerHTML = data.store_reviews[1].rating;
+          document.querySelector('.review-items .item-2 .title h3').innerHTML = data.store_reviews[1].title;
+          document.querySelector('.review-items .item-2 .content').innerHTML = data.store_reviews[1].body;
+          document.querySelector('.review-items .item-2 .author').innerHTML = "-" + data.store_reviews[1].customer.first_name + " " + data.store_reviews[1].customer.last_name;
+          document.querySelector('.review-items .item-2 .report').innerHTML = "";
+          var item2Date = new Date(data.store_reviews[0].created_at);
+          var item2DateArr = item2Date.toDateString().split(' ');
+          document.querySelector('.review-items .item-2 .date').innerHTML = item2DateArr[1] + ' ' + item2DateArr[2] + ',' + item2DateArr[3];
+          document.querySelector('.review-items .item-2').style.display = "block";
+      }).catch(function (err) {
+          // There was an error
+          console.warn('Something went wrong.', err);
+      });
+    </script>

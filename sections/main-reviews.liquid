@@ -1,0 +1,495 @@
+{% schema %}
+  {
+    "name": "Main Reviews",
+    "tag": "section",
+    "settings": [],
+     "presets": [
+        {
+          "name": "Main Reviews"
+        }
+     ]
+  }
+{% endschema %}
+
+<style>
+  .target-reviews {
+    display: grid;
+  }
+
+  .target-reviews .left {
+  }
+
+  .target-reviews .right {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .tabs a {
+    padding: 10px 20px;
+  }
+
+  .tabs a.active {
+    border-bottom: 3px solid #000;
+  }
+
+  .review-box {
+    display: none;
+    padding: 20px 0;
+  }
+
+  .review-box.active {
+    display: block;
+  }
+
+  span[data="review-avg"] {
+    font-size: 80px;
+  }
+
+  span.star-icon {
+    font-size: 25px;
+    color: #3fc6d8;
+    position: relative;
+  }
+
+  span.star-icon.full:before {
+    color: #3fc6d8;
+    content: '\2605'; /* Full star in UTF-8 */
+    position: absolute;
+    left: 0;
+  }
+  
+  span.star-icon.half:before {
+    color: #3fc6d8;
+    content: '\2605'; /* Full star in UTF-8 */
+    position: absolute;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+  }
+
+  .review-avg {
+    width: 160px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .review-avg .avg {
+    line-height: 60px;
+  }
+
+  .review-avg .avg-stars {
+    margin-top: -10px;
+  }
+
+  .review-box .left {
+    display: flex;
+  }
+
+  .review-box .left .review-bars {
+    width: 250px;
+  }
+
+  .review-box .left .review-bar {
+    display: flex;
+  }
+
+  .review-box .right {
+    margin-top: 20px;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 25px;
+  }
+
+  .review-bar-number {
+    width: 20px;
+    text-align: center;
+  }
+
+  .review-bar-percentage {
+    background: #e3e3e3;
+    width: 100%;
+    height: 16px;
+    margin-left: 10px;
+    border-radius: 7px;
+    margin-top: 5px;
+  }
+
+  .review-bar-percentage .inside {
+    height: 100%;
+    background: #1d2141;
+    width: 10px;
+    border-radius: 7px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .review-item {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 35px;
+  }
+
+  .review-item .author {
+    width: 200px;
+  }
+
+  .review-item .comment {
+    width: 100%;
+    padding-top: 0;
+    display: block;
+  }
+
+  .review-item .comment h3 {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .review-item .comment .content {
+    font-size: 17px;
+    margin-top: 10px;
+  }
+
+  .review-item .comment .reference {
+    margin-top: 15px;
+  }
+
+  .review-item .comment .reference a {
+    color: #1d2141;
+    text-decoration: underline;
+  }
+
+  .review-box .left .review-bars {
+    width: 250px;
+    margin-left: 25px;
+  }
+</style>
+<div class="container main-reviews">
+  <div class="tabs">
+    <a href='#' data-target="product-reviews" class="tab-link active">Product Reviews</a>
+    <a href='#' data-target="store-reviews" class="tab-link">Store Reviews</a>
+  </div>
+  <div class="product-reviews review-box active">
+    <div class="left">
+      <div class="review-avg">
+        <div class="avg"><span data="review-avg"></span></div>
+        <div class="avg-stars">
+          <span class="star-icon">☆</span>
+          <span class="star-icon">☆</span>
+          <span class="star-icon">☆</span>
+          <span class="star-icon">☆</span>
+          <span class="star-icon">☆</span>
+        </div>
+        <div class="avg-words"><span data="review-avg-count"></span><span> reviews.</span></div>
+      </div>
+      <div class="review-bars">
+        <div class="review-bar">
+          <div class="review-bar-number review-bar-number-5">5</div>
+          <div class="review-bar-percentage review-bar-percentage-5">
+            <div class="inside"></div>
+          </div>
+        </div>
+        <div class="review-bar">
+          <div class="review-bar-number review-bar-number-4">4</div>
+          <div class="review-bar-percentage review-bar-percentage-4">
+            <div class="inside"></div>
+          </div>
+        </div>
+        <div class="review-bar">
+          <div class="review-bar-number review-bar-number-3">3</div>
+          <div class="review-bar-percentage review-bar-percentage-3">
+            <div class="inside"></div>
+          </div>
+        </div>
+        <div class="review-bar">
+          <div class="review-bar-number review-bar-number-2">2</div>
+          <div class="review-bar-percentage review-bar-percentage-2">
+            <div class="inside"></div>
+          </div>
+        </div>
+        <div class="review-bar">
+          <div class="review-bar-number review-bar-number-1">1</div>
+          <div class="review-bar-percentage review-bar-percentage-1">
+            <div class="inside"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="review-items">
+        <div class="review-item item-1" style="display: none;">
+          <div class="author"></div>
+          <div class="comment">
+            <div class="stars">
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+            </div>
+            <div class="title">
+              <h3></h3>
+            </div>
+            <div class="content"></div>
+            <div class="author"></div>
+            <div class="reference"><span>Review left on: </span><a href="#"></a></div>
+            <div class="item-footer">
+              <div class="report"></div>
+              <div class="date"></div>
+            </div>
+          </div>
+        </div>
+        <div class="review-item item-2" style="display: none;">
+          <div class="author"></div>
+          <div class="comment">
+            <div class="stars">
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+              <span class="star-icon">☆</span>
+            </div>
+            <div class="title">
+              <h3></h3>
+            </div>
+            <div class="content"></div>
+            <div class="author"></div>
+            <div class="reference"><span>Review left on: </span><a href="#"></a></div>
+            <div class="item-footer">
+              <div class="report"></div>
+              <div class="date"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="store-reviews review-box">
+    <div class="left">
+      <div class="review-avg">
+        <div class="avg"><span data="review-avg"></span></div>
+        <div class="avg-words"><span>This product is rated </span><span data="review-avg-words"></span><span> of 5.0 stars. It has </span><span data="review-avg-count"></span><span> reviews.</span></div>
+        <div class="review-btn"><button>LEAVE A REVIEW</button></div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="review-items">
+        <div class="review-item item-1" style="display: none;">
+          <div class="stars">
+            
+          </div>
+          <div class="title">
+            <h3></h3>
+          </div>
+          <div class="content"></div>
+          <div class="author"></div>
+          <div class="item-footer">
+            <div class="report"></div>
+            <div class="date"></div>
+          </div>
+        </div>
+        <div class="review-item item-2" style="display: none;">
+          <div class="stars">
+            
+          </div>
+          <div class="title">
+            <h3></h3>
+          </div>
+          <div class="content"></div>
+          <div class="author"></div>
+          <div class="item-footer">
+            <div class="report"></div>
+            <div class="date"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <script>
+      fetch('https://api.juniphq.com/v1/product_overviews', {
+        method: 'GET',
+        headers: {
+            'Junip-Store-Key': 'krAHMAjdv61DwHnAFxLwXHs5'
+        }
+      }).then(function (response) {
+        console.log('response',response);
+          // The API call was successful!
+          if (response.ok) {
+              return response.json();
+          } else {
+              return Promise.reject(response);
+          }
+      }).then(function (data) {
+          // This is the JSON from our response
+          console.log("Product Data",data.product_overviews[0]);
+          document.querySelector('.product-reviews [data="review-avg"]').innerHTML = parseFloat(data.product_overviews[0].rating_average).toFixed(2);
+          document.querySelector('.product-reviews [data="review-avg-count"]').innerHTML = data.product_overviews[0].rating_count;
+          var rating_average = parseFloat(data.product_overviews[0].rating_average);
+          for(let i = 0; i < rating_average; i++) {
+            console.log("selector",document.querySelector('.product-reviews .avg-stars .star-icon:nth-child(' + (i + 1) + ')'));
+            document.querySelector('.product-reviews .avg-stars .star-icon:nth-child(' + (i + 1) + ')').classList.add(
+              ( (i+1) < rating_average ? "full" : ( (rating_average - i) > 0 && (rating_average - i) < 1 ) ? "half" : "empty" )
+            );
+          }
+
+          for(let i = 1; i <= 5; i++) {
+            document.querySelector('.product-reviews .review-bars .review-bar-percentage-'+i+' .inside').style.width = "" + ((data.product_overviews[0].rating_distribution[i] / data.product_overviews[0].rating_count) * 100) + "%";
+          }
+      }).catch(function (err) {
+          // There was an error
+          console.warn('Something went wrong.', err);
+      });
+
+      fetch('https://api.juniphq.com/v1/product_reviews', {
+        method: 'GET',
+        headers: {
+            'Junip-Store-Key': 'krAHMAjdv61DwHnAFxLwXHs5'
+        }
+      }).then(function (response) {
+        console.log('response',response);
+          // The API call was successful!
+          if (response.ok) {
+              return response.json();
+          } else {
+              return Promise.reject(response);
+          }
+      }).then(function (data) {
+          // This is the JSON from our response
+          //document.querySelector('.product-reviews .review-items .item-1 .stars').innerHTML = data.product_reviews[0].rating;
+          let rating_average_0 = data.product_reviews[0].rating;
+          for(let i = 0; i < rating_average_0; i++) {
+            document.querySelector('.product-reviews .review-items .item-1 .stars .star-icon:nth-child(' + (i + 1) + ')').classList.add(
+              ( (i+1) < rating_average_0 ? "full" : ( (rating_average_0 - i) > 0 && (rating_average_0 - i) < 1 ) ? "half" : "full" )
+            );
+          }
+          document.querySelector('.product-reviews .review-items .item-1 .title h3').innerHTML = data.product_reviews[0].title;
+          document.querySelector('.product-reviews .review-items .item-1 .content').innerHTML = data.product_reviews[0].body;
+          document.querySelector('.product-reviews .review-items .item-1 .author').innerHTML = data.product_reviews[0].customer_id;
+          document.querySelector('.product-reviews .review-items .item-1 .report').innerHTML = "";
+          document.querySelector('.product-reviews .review-items .item-1 .date').innerHTML = data.product_reviews[0].created_at;
+          document.querySelector('.product-reviews .review-items .item-1').style.display = "flex";
+
+          fetch('https://api.juniphq.com/v1/products/' + data.product_reviews[0].product_id, {
+            method: 'GET',
+            headers: {
+                'Junip-Store-Key': 'krAHMAjdv61DwHnAFxLwXHs5'
+            }
+          }).then(function (response) {
+            console.log('response',response);
+              // The API call was successful!
+              if (response.ok) {
+                  return response.json();
+              } else {
+                  return Promise.reject(response);
+              }
+          }).then(function (data) {
+              // This is the JSON from our response
+              console.log("Product Item",data);
+              document.querySelector('.product-reviews .review-items .item-1 .reference a').innerHTML = data.product.title;
+              document.querySelector('.product-reviews .review-items .item-1 .reference a').href = "https://tomskey.com/products/" + data.product.remote_handle;
+          }).catch(function (err) {
+              // There was an error
+              console.warn('Something went wrong.', err);
+          });
+
+          let rating_average_1 = data.product_reviews[1].rating;
+          for(let i = 0; i < rating_average_1; i++) {
+            document.querySelector('.product-reviews .review-items .item-2 .stars .star-icon:nth-child(' + (i + 1) + ')').classList.add(
+              ( (i+1) < rating_average_1 ? "full" : ( (rating_average_1 - i) > 0 && (rating_average_1 - i) < 1 ) ? "half" : "full" )
+            );
+          }
+          document.querySelector('.product-reviews .review-items .item-2 .title h3').innerHTML = data.product_reviews[1].title;
+          document.querySelector('.product-reviews .review-items .item-2 .content').innerHTML = data.product_reviews[1].body;
+          document.querySelector('.product-reviews .review-items .item-2 .author').innerHTML = data.product_reviews[1].customer_id;
+          document.querySelector('.product-reviews .review-items .item-2 .report').innerHTML = "";
+          document.querySelector('.product-reviews .review-items .item-2 .date').innerHTML = data.product_reviews[1].created_at;
+          document.querySelector('.product-reviews .review-items .item-2').style.display = "flex";
+
+          fetch('https://api.juniphq.com/v1/products/' + data.product_reviews[1].product_id, {
+            method: 'GET',
+            headers: {
+                'Junip-Store-Key': 'krAHMAjdv61DwHnAFxLwXHs5'
+            }
+          }).then(function (response) {
+            console.log('response',response);
+              // The API call was successful!
+              if (response.ok) {
+                  return response.json();
+              } else {
+                  return Promise.reject(response);
+              }
+          }).then(function (data) {
+              // This is the JSON from our response
+              console.log("Product Item",data);
+              document.querySelector('.product-reviews .review-items .item-2 .reference a').innerHTML = data.product.title;
+              document.querySelector('.product-reviews .review-items .item-2 .reference a').href = "https://tomskey.com/products/" + data.product.remote_handle;
+          }).catch(function (err) {
+              // There was an error
+              console.warn('Something went wrong.', err);
+          });
+      }).catch(function (err) {
+          // There was an error
+          console.warn('Something went wrong.', err);
+      });
+
+      fetch('https://api.juniphq.com/v1/stores', {
+        method: 'GET',
+        headers: {
+            'Junip-Store-Key': 'krAHMAjdv61DwHnAFxLwXHs5'
+        }
+      }).then(function (response) {
+        console.log('response',response);
+          // The API call was successful!
+          if (response.ok) {
+              return response.json();
+          } else {
+              return Promise.reject(response);
+          }
+      }).then(function (data) {
+          // This is the JSON from our response
+          console.log("Store Data",data.stores[0]);
+          var sum = 0;
+          document.querySelector('.store-reviews [data="review-avg"]').innerHTML = parseFloat(data.stores[0].rating_average).toFixed(2);
+          document.querySelector('.store-reviews [data="review-avg-words"]').innerHTML = parseFloat(data.stores[0].rating_average).toFixed(2);
+          document.querySelector('.store-reviews [data="review-avg-count"]').innerHTML = data.stores[0].rating_count;
+      }).catch(function (err) {
+          // There was an error
+          console.warn('Something went wrong.', err);
+      });
+
+      fetch('https://api.juniphq.com/v1/store_reviews', {
+        method: 'GET',
+        headers: {
+            'Junip-Store-Key': 'krAHMAjdv61DwHnAFxLwXHs5'
+        }
+      }).then(function (response) {
+        console.log('response',response);
+          // The API call was successful!
+          if (response.ok) {
+              return response.json();
+          } else {
+              return Promise.reject(response);
+          }
+      }).then(function (data) {
+        document.querySelector('.store-reviews .review-items .item-1 .stars').innerHTML = data.store_reviews[0].rating;
+        document.querySelector('.store-reviews .review-items .item-1 .title h3').innerHTML = data.store_reviews[0].title;
+        document.querySelector('.store-reviews .review-items .item-1 .content').innerHTML = data.store_reviews[0].body;
+        document.querySelector('.store-reviews .review-items .item-1 .author').innerHTML = data.store_reviews[0].customer_id;
+        document.querySelector('.store-reviews .review-items .item-1 .report').innerHTML = "";
+        document.querySelector('.store-reviews .review-items .item-1 .date').innerHTML = data.store_reviews[0].created_at;
+        document.querySelector('.store-reviews .review-items .item-1').style.display = "flex";
+
+        document.querySelector('.store-reviews .review-items .item-2 .stars').innerHTML = data.store_reviews[1].rating;
+        document.querySelector('.store-reviews .review-items .item-2 .title h3').innerHTML = data.store_reviews[1].title;
+        document.querySelector('.store-reviews .review-items .item-2 .content').innerHTML = data.store_reviews[1].body;
+        document.querySelector('.store-reviews .review-items .item-2 .author').innerHTML = data.store_reviews[1].customer_id;
+        document.querySelector('.store-reviews .review-items .item-2 .report').innerHTML = "";
+        document.querySelector('.store-reviews .review-items .item-2 .date').innerHTML = data.store_reviews[1].created_at;
+        document.querySelector('.store-reviews .review-items .item-2').style.display = "flex";
+      });
+    </script>

@@ -1,0 +1,44 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+PROGRAMMER DELETE CONFIRMATION COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used in cart line items
+
+********************************************
+Supported variables
+********************************************
+
+* line_item: the cart line item (required)
+* context: string acts as uid to ensure no duplicate popups/triggers (required)
+{%- endcomment -%}
+
+{%- if line_item -%}
+  <button type="button"
+    class="link"
+    aria-controls="programmer-delete-confirmation--{{ context }}--{{ line_item.id }}"
+    aria-expanded="false">
+    {{- 'cart.order.remove' | t -}}
+  </button>
+
+  <x-drawer id="programmer-delete-confirmation--{{ context }}--{{ line_item.id }}"
+    class="programmer-delete-confirmation drawer drawer--lg"
+    open-from="bottom">
+    <div class="programmer-delete-confirmation__container">
+      <p class="programmer-delete-confirmation__text text-lg prose">
+        {{- settings.programmer_delete_text -}}
+      </p>
+      <div class="programmer-delete-confirmation__actions">
+        <a href="{{ line_item.url_to_remove }}" 
+          class="button">
+          {{- settings.programmer_delete_confirm -}}
+        </a>
+        <button type="button"
+          class="button button--subdued"
+          is="close-button">
+          {{- settings.programmer_delete_cancel -}}
+        </button>
+      </div>
+    </div>
+  </x-drawer>
+{%- endif -%}

@@ -1,0 +1,377 @@
+{{ 'car-stepper.css' | asset_url | stylesheet_tag }}
+{{ 'car-stepper.js' | asset_url | script_tag }}
+
+<div class="stepper-container" data-stepper-container>
+  {% if section.settings.background_image %}
+    <div class="stepper-background-image">
+      {{ section.settings.background_image | image_url: width: 2000 | image_tag }}
+    </div>
+  {% endif %}
+
+  {% if section.settings.stepper_hero_title != blank %}
+    <div class="stepper-header">
+      <h2 class="h1">{{ section.settings.stepper_hero_title }}</h2>
+      {% if section.settings.stepper_hero_copy != blank %}
+        <p class="text-lg">{{ section.settings.stepper_hero_copy }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="car-stepper" data-car-stepper>
+    <div class="exit-stepper">
+      <button class="exit-stepper-button" data-exit-stepper>{% render 'icon-close' %}</button>
+    </div>
+    <div class="car-stepper__inner {% if section.settings.is_expanded %}expanded{% else %}collapsed{% endif %}" data-car-stepper-inner>
+      <header data-stepper-header>
+        <h2 data-question-title>{{ section.settings.stepper_title }}</h2>
+      </header>
+      <div class="mmy" data-mmy-container>
+        <div class="search-container">
+          <input
+            type="text"
+            id="stepperSearchInput"
+            placeholder="{{ 'car_stepper.general.search' | t }}">
+          {% render 'icon-search' %}
+          <div class="selected-container" data-selected-container></div>
+        </div>
+        <div class="gradient-container">
+          <div class="gradient-top"></div>
+          <div class="buttons-container" data-buttons-container>
+            <!-- Dynamically populated buttons will go here -->
+          </div>
+          <div class="gradient-bottom"></div>
+        </div>
+      </div>
+      <div class="product-finder" data-product-finder-container>
+        <div class="question-container" data-question-container></div>
+        <div class="gradient-container">
+          <div class="gradient-top"></div>
+          <div class="buttons-container" data-buttons-container>
+            <!-- Dynamically populated buttons will go here -->
+          </div>
+          <div class="products" data-products-container>
+            <!-- Dynamically populated products will go here -->
+          </div>
+          <div class="mobile-skip-button-container" data-mobile-skip-button-container></div>
+          <div class="add-all-to-cart-container" data-add-all-to-cart-container>
+            <button class="add-all-to-cart-button" data-add-all-to-cart>{{ 'car_stepper.add_all_to_cart' | t }}</button>
+            <button class="all-available-link" data-all-available-link>{{ 'car_stepper.all_available_link' | t }}</button>
+            <button class="continue-to-instructions" data-continue-to-instructions>{{ 'car_stepper.continue_to_insturctions' | t }}</button>
+          </div>
+          <div class="gradient-bottom"></div>
+        </div>
+        <div class="selected-vehicle-container" data-selected-vehicle-container>
+          <img
+            class="carIcon"
+            src=""
+            alt="">
+          <p class="selected"></p>
+          <button class="change-vehicle-trigger" data-change-trigger>
+            {% render 'icon-change' %}
+          </button>
+        </div>
+      </div>
+      
+      <div class="stepper-progress-bar" data-stepper-progress-bar></div>
+      
+      <div class="stepper-pagination-and-report">
+        <div class="stepper-pagination" data-stepper-pagination>
+          <button class="stepper-back stepper-button" id="stepperPrevBtn" disabled>{% render 'icon-arrow-left' %}{{ 'car_stepper.general.back' | t }}</button>
+          <button class="stepper-next stepper-button disabled" id="stepperNextBtn" disabled>{{ 'car_stepper.general.next' | t }}{% render 'icon-arrow-right' %}</button>
+        </div>
+        <a href="#" class="report-problem-link" data-report-problem-link>{{ 'car_stepper.report_a_problem' | t }}</a>
+      </div>
+
+      <div class="stepper-expander {% if section.settings.is_expanded %}expanded{% else %}collapsed{% endif %}" id="stepperExpander">
+        <div class="gradient-bottom"></div>
+        <button class="stepper-expander-icon">
+          {% render 'icon-expand' %}
+        </button>
+      </div>
+
+      <div class="unable-to-proceed-stepper-modal" data-unable-to-proceed-stepper-modal>
+        <div class="close" data-close-button>
+          {% render 'icon-close' %}
+        </div>
+        <header>
+          <h2></h2>
+          <p></p>
+        </header>
+        <div class="actions">
+          <button data-return-button>{{ 'car_stepper.exit.cancel' | t }}</button>
+        </div>
+      </div>
+
+      <div class="all-results-state" data-all-results-state>
+        <div class="close" data-close-button>
+          {% render 'icon-close' %}
+        </div>
+        <header>
+          <h2>{{ 'car_stepper.all_results.title' | t }}</h2>
+          <p>{{ 'car_stepper.all_results.description' | t }}</p>
+        </header>
+        <div class="gradient-container">
+          <div class="gradient-top"></div>
+          <div class="products" data-all-products>
+            <!-- Dynamically populated products will go here -->
+          </div>
+          <div class="gradient-bottom"></div>
+        </div>
+        <div class="actions">
+          <button data-return-button>{{ 'car_stepper.all_results.return' | t }}</button>
+        </div>
+      </div>
+
+      <div class="stepper-change-vehicle" data-stepper-change-vehicle>
+        <div class="close" data-close-button>
+          {% render 'icon-close' %}
+        </div>
+        <header>
+          <h2>{{ 'car_stepper.change_vehicle.title' | t }}</h2>
+          <p>{{ 'car_stepper.change_vehicle.description' | t }}</p>
+        </header>
+        <div class="actions">
+          <button data-return-button>{{ 'car_stepper.change_vehicle.return' | t }}</button>
+          <button data-change-button>{{ 'car_stepper.change_vehicle.change' | t }}</button>
+        </div>
+      </div>
+      
+      <div class="important-information" data-important-information-container>
+        <!-- important information dynamically populated -->
+      </div>
+      
+      <div class="hidden">
+        <span class="arrow-right">
+          {% render 'icon-arrow-right' %}
+        </span>
+      </div>
+    </div>
+
+    <div class="stepper-educate" data-stepper-educate>
+      <div class="stepper-educate__container" data-educate-container></div>
+      <div class="actions">
+        <button class="btn" data-educate-return-button>{{ 'car_stepper.educate.back' | t }}</button>
+        <a class="btn" href="#" hidden data-educate-continue-button>{{ 'car_stepper.educate.continue' | t }}</a>
+      </div>
+    </div>
+
+    <div class="close-stepper-modal" data-close-stepper-modal>
+      <div class="close" data-close-button>
+        {% render 'icon-close' %}
+      </div>
+      <header>
+        <h2>{{ 'car_stepper.exit.title' | t }}</h2>
+        <p>{{ 'car_stepper.exit.description' | t }}</p>
+      </header>
+      <div class="actions">
+        <button data-return-button>{{ 'car_stepper.exit.cancel' | t }}</button>
+        <button class="alt" data-view-all-button>{{ 'car_stepper.exit.exit' | t }}</button>
+      </div>
+    </div>
+
+    <div class="no-results-state" data-stepper-no-results-container>
+      {%- capture contact_form_id -%}contact-form-{{ section.id }}{%- endcapture -%}
+
+      {%- form 'contact', id: contact_form_id, class: 'form' -%}
+        <div class="fieldset">
+          {%- if form.posted_successfully? -%}
+            {%- capture content -%}{{- 'contact.form.success_message' | t -}}{%- endcapture -%}
+            {%- render 'banner', status: 'success', content: content -%}
+          {%- endif -%}
+      
+          {%- if form.errors -%}
+            {%- capture content -%}{{ form.errors.translated_fields[form.errors.first] | capitalize }} {{ form.errors.messages[form.errors.first] }}{%- endcapture -%}
+            {%- render 'banner', status: 'error', content: content -%}
+          {%- endif -%}
+      
+          <div class="input-row">
+            {%- capture label -%}{{ 'contact.form.name' | t }}{%- endcapture -%}
+            {%- render 'input', type: 'text', name: 'contact[name]', label: label, value: customer.name, required: true, autocomplete: 'name' -%}
+      
+            {%- capture label -%}{{ 'contact.form.email' | t }}{%- endcapture -%}
+            {%- render 'input', type: 'email', name: 'contact[email]', label: label, value: customer.email, required: true, autocomplete: 'email' -%}
+
+            {%- capture label -%}{{ 'contact.form.phone' | t }}{%- endcapture -%}
+            {%- render 'input', type: 'tel', name: 'contact[phone]', label: label, value: customer.phone, required: true, autocomplete: 'tel' -%}
+          </div>
+      
+          {%- render 'contact-mmy-dropdowns' -%}
+        </div>
+      
+        <div class="submit">
+          <button type="button" class="button button--xl" data-no-results-back-button>{{ 'car_stepper.no_results_back_button' | t }}</button>
+          {%- capture button_content -%}{{ 'car_stepper.contact_submit' | t }}{%- endcapture -%}
+          {%- render 'button', content: button_content, type: 'submit', size: 'xl' -%}
+        </div>
+      {%- endform -%}      
+    </div>
+  </div>
+
+  <div data-convermax-vehicles style="position: relative; z-index: 3;"></div>
+</div>
+
+<script>
+  window.stepperSettings = {{ section.settings | json }};
+  window.stepperSettings.kbpStandardEdgeVariantId = {{ settings.product_edge.variants[0].id | json }};
+  window.stepperSettings.kbpHsLaserVariantId = {{ settings.product_laser.variants[0].id | json }};
+</script>
+
+<div data-upload-lift-widgets hidden>
+  {%- render 'upload-lift-proof-of-ownership', context: 'main-cart' -%}
+  {%- render 'upload-lift-key-by-photo', context: 'main-cart' -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Stepper",
+    "class": "shopify-section--stepper",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "stepper_hero_title",
+        "label": "Hero Title"
+      },
+      {
+        "type": "textarea",
+        "id": "stepper_hero_copy",
+        "label": "Hero Copy"
+      },
+      {
+        "type": "checkbox",
+        "id": "is_expanded",
+        "label": "Initial View Expanded",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "stepper_title",
+        "label": "Title",
+        "default": "Find Your Car"
+      },
+      {
+        "type": "text",
+        "id": "which_key_title",
+        "label": "Key Selector Title",
+        "default": "Which key do you want?"
+      },
+      {
+        "type": "text",
+        "id": "which_key_description",
+        "label": "Key Selector Description",
+        "default": "Please indicate which style of key you would like to purchase."
+      }, {
+        "type": "text",
+        "id": "which_fob_title",
+        "label": "Fob Selector Title",
+        "default": "Which fob do you want?"
+      }, {
+        "type": "text",
+        "id": "which_fob_description",
+        "label": "Fob Selector Description",
+        "default": "Please indicate which style of fob you would like to purchase."
+      }, {
+        "type": "text",
+        "id": "how_many_keys_title",
+        "label": "Key Quantity Selector Title",
+        "default": "How many keys would you like?"
+      }, {
+        "type": "text",
+        "id": "how_many_keys_description",
+        "label": "Key Quantity Selector Description",
+        "default": "Now that we’ve found the perfect key for your car, how many would you like? This can also be adjusted in your cart before checkout."
+      }, {
+        "type": "image_picker",
+        "id": "how_many_keys_image",
+        "label": "Key Quantity Selector Image"
+      }, {
+        "type": "text",
+        "id": "how_many_fobs_title",
+        "label": "Fob Quantity Selector Title",
+        "default": "How many remote fobs would you like?"
+      }, {
+        "type": "text",
+        "id": "how_many_fobs_description",
+        "label": "Fob Quantity Selector Description",
+        "default": "Now that we’ve found the perfect remote fob for your car, how many would you like? This can also be adjusted in your cart before checkout."
+      }, {
+        "type": "image_picker",
+        "id": "how_many_fobs_image",
+        "label": "Fob Quantity Selector Image"
+      }, {
+        "type": "text",
+        "id": "key_by_photo_title",
+        "label": "Key By Photo Title",
+        "default": "Would you like to add Key By Photo?"
+      }, {
+        "type": "richtext",
+        "id": "key_by_photo_description",
+        "label": "Key By Photo Description",
+        "default": "<p>Our Key By Photo™ service takes the hassle out of finding a dealer, locksmith, or local retailer to cut your car key. It arrives cut for your vehicle and ready to be programmed. You will be prompted to upload photos of your key before paying for your order.</p>"
+      }, {
+        "type": "video",
+        "id": "key_by_photo_video",
+        "label": "Key By Photo Video"
+      }, {
+        "type": "text",
+        "id": "extras_title",
+        "label": "Extras Title",
+        "default": "Add extras to your order"
+      }, {
+        "type": "text",
+        "id": "extras_description",
+        "label": "Extras Description",
+        "default": "Please select any accessories you would like to add to your purchase."
+      }, {
+        "type": "product_list",
+        "id": "extras",
+        "label": "Extras SKUs"
+      }, {
+        "type": "text",
+        "id": "your_results_title",
+        "label": "Your Results Title",
+        "default": "Your results"
+      }, {
+        "type": "text",
+        "id": "your_results_description",
+        "label": "Your Results Description",
+        "default": "Based on your responses, we have identified the correct products for your spare key needs. Items chosen and item quantity can be adjusted in your cart before checkout."
+      }, {
+        "type": "text",
+        "id": "important_information_title",
+        "label": "Important Information Title",
+        "default": "Important Instructions"
+      }, {
+        "type": "url",
+        "id": "all_other_years_link",
+        "label": "All Other Years Link"
+      },
+      {
+        "type": "header",
+        "content": "Product Results"
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_product_prices",
+        "label": "Hide product prices",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_product_titles",
+        "label": "Hide product titles",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Stepper"
+      }
+    ]
+  }
+{% endschema %}

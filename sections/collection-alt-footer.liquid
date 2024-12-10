@@ -1,0 +1,163 @@
+
+<div class="container-fluid hero-branded-footer-2">
+  <div class="container programming-video mb-2 py-5" style="display: none;">
+    
+    <div class="row">
+      
+      <div class="story col-12 col-md-6 mb-5">
+        <h2 class="h2">Car Programming</h2>
+       
+          <p class="pt-5">1. Connect the Simple Key™ programmer to your vehicle to start the pairing process.</p>
+          <p>2. Follow the step by step instructions to program your new key or fob to start your vehicle.</p>
+          <p>3. Optional: cut the emergency access key blade for your vehicle before it ships!</p>
+       
+      </div>
+      
+      <div class="images col-12 col-md-6 text-right">
+        <iframe class="car-video-embed" width="100%" height="350" class="" src="#" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="    border-radius: 20px;"></iframe>
+        <a href="#" class="d-none" target="_blank">
+          <img loading="lazy" class="img-fluid" src="https://cdn.shopify.com/s/files/1/0056/5677/2706/files/Group_35.png?v=1652361876">
+        </a>
+       
+        <h5 class="d-block mt-2"> <span class="d-block"></span></h5>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+{% assign year_range = " " | append: collection.metafields.collection.start_year %}
+{% assign year_range_2 = " (" | append: collection.metafields.collection.start_year | append: ")" %}
+
+{% if collection.metafields.collection.year_end != blank and collection.metafields.collection.year_end != "" %}
+  {% assign year_range = " " | append: collection.metafields.collection.start_year | append: "-" | append: collection.metafields.collection.year_end %}
+  {% assign year_range_2 = " (" | append: collection.metafields.collection.start_year | append: "-" | append: collection.metafields.collection.year_end | append: ")" %}
+{% endif %}
+
+{% assign highlighted = year_range %}
+{% assign highlighted2 = year_range_2 %}
+
+{% if collection.metafields.collection.suffix != blank and collection.metafields.collection.suffix != "" %}
+  {% assign highlighted = year_range | append: " " | append: collection.metafields.collection.suffix %}
+  {% assign highlighted2 = year_range_2 | append: " " | append: collection.metafields.collection.suffix %}
+{% endif %}
+
+  $(document).ready(function(){
+    var collection_handle = "{{ collection.title | handle }}";
+    var collection_make = "{{ collection.metafields.collection.make }}";
+    var collection_version = "{{ highlighted }}";
+    var collection_version_2 = "{{ highlighted2 }}";
+    var collection_title = "{{ collection.title }}";
+
+    collection_title = collection_title.replace(collection_make + " ","");
+    collection_title = collection_title.replace(collection_version_2,"");
+    var collection_model = collection_title.replace(collection_version,"");
+
+    var collection_id = "{{ collection.id }}";
+    var collection_id_int = {{ collection.id }};
+    var collection_handle_clean = collection_handle.replace('-span-class-version','').replace('-span','').replace(/-/g,' ');
+    collection_handle = collection_handle.split("-span-class-version")[0];
+    var collection_handle_array = collection_handle.split("-");
+    var brand = collection_handle_array[0];
+    collection_handle_array.splice(0,1);
+    var model = collection_handle_array.join(" ");
+    var progamming_video = $(".programming-video").clone();
+    $(".programming-video").remove();
+    
+    $.ajax({
+      dataType: "json",
+      url: "{{ 'car-videos.json' | asset_url }}",
+      dataType: 'JSON',
+      success: function(videos) {
+
+        console.log("json on");
+        
+        videos.forEach( function( meta, idx ){
+          if(idx>1) {
+            if(meta.make == collection_make.toLowerCase()) {
+              console.log("test", meta.make, collection_make);
+
+              let vidUrl=meta.makeUrl,vidTitle=meta.makeVid;
+              if(vidUrl[0]=="#") {
+                for (const replacement in videos[0]) {
+                  if(vidUrl.startsWith(replacement)) {
+                    vidUrl = vidUrl.replace(replacement,videos[0][replacement]);
+                    break;
+                  }
+                }
+              }
+              if(vidTitle[0]=="$") {
+                for (const replacement in videos[1]) {
+                  if(vidTitle.startsWith(replacement)) {
+                    vidTitle = vidTitle.replace(replacement,videos[1][replacement]);
+                    break;
+                  }
+                }
+              }
+              $('.brand-title').empty();
+              $('.brand-title').html(meta.make.toUpperCase() + " PROGRAMMING");
+              $('.video-title').html(vidTitle);
+              $('.car-video-link').attr("href",vidUrl);
+              $('.car-video-link').prop("href",vidUrl);
+              meta.collectionsList.forEach(function( collection ){
+                //check if model matches
+                console.log("collection_model", collection_model);
+                console.log("collection", collection);
+                if( collection_id_int == collection[0] ){
+                  console.log("COLLECTION MATCHED",collection);
+                  var progamming_video_clone = progamming_video.clone();
+
+                  vidUrl=collection[1].url,vidTitle=collection[1].title;
+                  if(vidUrl[0]=="#") {
+                    for (const replacement in videos[0]) {
+                      if(vidUrl.startsWith(replacement)) {
+                        vidUrl = vidUrl.replace(replacement,videos[0][replacement]);
+                        vidUrl = vidUrl.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
+                        break;
+                      }
+                    }
+                  }
+                  if(vidTitle[0]=="$") {
+                    for (const replacement in videos[1]) {
+                      if(vidTitle.startsWith(replacement)) {
+                        vidTitle = vidTitle.replace(replacement,videos[1][replacement]);
+                        break;
+                      }
+                    }
+                  }
+                  //progamming_video_clone.find("h1").html(collection._meta['collection-name'] + " Programming");
+                  progamming_video_clone.find("a").attr(vidUrl);
+                  progamming_video_clone.find("span").html(vidTitle);
+                  $('.hero-branded-footer-2').append(progamming_video_clone);
+                  //var videoid = collection_meta['video-url'].replace("https://www.youtube.com/watch?","");
+                  //videoid = videoid.split("&");
+                  //videoid = videoid[0].replace("v=","");
+                  $('.car-video-embed').attr('src',vidUrl);
+                  progamming_video_clone.fadeIn();
+                }
+              });
+            }
+          }
+        });
+      }
+    });
+    
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "custom collection video",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

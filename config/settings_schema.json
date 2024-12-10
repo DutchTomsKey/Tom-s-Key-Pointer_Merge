@@ -1,0 +1,1266 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Impact",
+    "theme_author": "Maestrooo",
+    "theme_version": "4.4.0",
+    "theme_documentation_url": "https:\/\/support.maestrooo.com\/",
+    "theme_support_url": "https:\/\/support.maestrooo.com\/article\/203-contact-us"
+  },
+  {
+    "name": "Appearance and spacing",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Adapt the theme to your brand style by changing rounded elements, spacing and icons style."
+      },
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1300,
+        "max": 1800,
+        "step": 20,
+        "unit": "px",
+        "label": "Page width",
+        "default": 1600
+      },
+      {
+        "type": "header",
+        "content": "Section spacing"
+      },
+      {
+        "type": "select",
+        "id": "section_vertical_spacing",
+        "label": "Vertical space between sections",
+        "options": [
+          {
+            "value": "xsmall",
+            "label": "X-Small"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "select",
+        "id": "section_boxed_horizontal_spacing",
+        "label": "Horizontal space inside sections",
+        "options": [
+          {
+            "value": "xsmall",
+            "label": "X-Small"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "header",
+        "content": "Rounding"
+      },
+      {
+        "type": "range",
+        "id": "button_border_radius",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "unit": "px",
+        "label": "Button corner radius",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "input_border_radius",
+        "min": 0,
+        "max": 10,
+        "step": 2,
+        "unit": "px",
+        "label": "Input corner radius",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "block_border_radius",
+        "min": 0,
+        "max": 64,
+        "step": 4,
+        "unit": "px",
+        "label": "Block corner radius",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Shadow"
+      },
+      {
+        "type": "range",
+        "id": "block_shadow_opacity",
+        "min": 0,
+        "max": 100,
+        "unit": "%",
+        "label": "Opacity",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "block_shadow_horizontal_offset",
+        "min": -32,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "label": "Horizontal offset",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "block_shadow_vertical_offset",
+        "min": -32,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "label": "Vertical offset",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "block_shadow_blur",
+        "min": 0,
+        "max": 60,
+        "step": 5,
+        "unit": "px",
+        "label": "Blur",
+        "default": 50
+      },
+      {
+        "type": "header",
+        "content": "Icon"
+      },
+      {
+        "type": "range",
+        "id": "icon_stroke_width",
+        "min": 1,
+        "max": 2,
+        "step": 0.1,
+        "unit": "px",
+        "label": "Icon thickness",
+        "default": 2
+      },
+      {
+        "type": "select",
+        "id": "icon_style",
+        "label": "Icon style",
+        "info": "Not all icons have duo-tone style.",
+        "options": [
+          {
+            "value": "mono",
+            "label": "Monochrome"
+          },
+          {
+            "value": "duo",
+            "label": "Duo-tone"
+          }
+        ],
+        "default": "duo"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "options": [
+          {
+            "value": "fill",
+            "label": "Fill"
+          },
+          {
+            "value": "outline",
+            "label": "Outline"
+          }
+        ],
+        "default": "fill"
+      },
+      {
+        "type": "select",
+        "id": "button_hover_effect",
+        "label": "Hover effect",
+        "info": "Hover is not available on touch devices (phone, tablet...).",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "fade",
+            "label": "Fade"
+          },
+          {
+            "value": "reverse",
+            "label": "Reverse style"
+          }
+        ],
+        "default": "fade"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#677279"
+      },
+      {
+        "type": "color",
+        "id": "success_color",
+        "label": "Success",
+        "default": "#00a341"
+      },
+      {
+        "type": "color",
+        "id": "warning_color",
+        "label": "Warning",
+        "default": "#ffb74a"
+      },
+      {
+        "type": "color",
+        "id": "error_color",
+        "label": "Error",
+        "default": "#f83a3a"
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "color",
+        "id": "header_background",
+        "label": "Background",
+        "default": "#1e316a"
+      },
+      {
+        "type": "color",
+        "id": "header_text_color",
+        "label": "Text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "color",
+        "id": "footer_background",
+        "label": "Background",
+        "default": "#f3f5f6"
+      },
+      {
+        "type": "color",
+        "id": "footer_text_color",
+        "label": "Text",
+        "default": "#677279"
+      },
+      {
+        "type": "header",
+        "content": "Drawer\/popover"
+      },
+      {
+        "type": "color",
+        "id": "dialog_background",
+        "label": "Modal\/popover background",
+        "info": "Choose a color similar to the primary background.",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Primary button"
+      },
+      {
+        "type": "color",
+        "id": "primary_button_background",
+        "label": "Background",
+        "default": "#00badb"
+      },
+      {
+        "type": "color",
+        "id": "primary_button_text_color",
+        "label": "Text",
+        "default": "#677279"
+      },
+      {
+        "type": "header",
+        "content": "Secondary button"
+      },
+      {
+        "type": "color",
+        "id": "secondary_button_background",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "secondary_button_text_color",
+        "label": "Text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Product",
+        "info": "[Learn more](https:\/\/support.maestrooo.com\/article\/75-collection-displaying-custom-label) about setting custom badges."
+      },
+      {
+        "type": "color",
+        "id": "product_card_background",
+        "label": "Card background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "product_card_text_color",
+        "label": "Card text",
+        "default": "#677279"
+      },
+      {
+        "type": "color",
+        "id": "product_rating_color",
+        "label": "Star rating",
+        "default": "#ffb74a"
+      },
+      {
+        "type": "color",
+        "id": "product_on_sale_accent",
+        "label": "On sale accent",
+        "default": "#f83a3a"
+      },
+      {
+        "type": "color",
+        "id": "product_sold_out_badge_background",
+        "label": "Sold out badge",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "product_primary_badge_background",
+        "label": "Custom badge",
+        "default": "#1e316a"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Font",
+        "info": "Selecting different fonts can affect the speed of your online store. Learn more about [system fonts.](https:\/\/help.shopify.com\/en\/manual\/online-store\/os\/store-speed\/improving-speed#fonts)",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "select",
+        "id": "heading_font_size",
+        "label": "Heading size",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "select",
+        "id": "heading_text_transform",
+        "label": "Heading style",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "range",
+        "min": -5,
+        "max": 10,
+        "step": 0.5,
+        "unit": "%",
+        "id": "heading_letter_spacing",
+        "label": "Heading letter spacing",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Body text"
+      },
+      {
+        "type": "font_picker",
+        "id": "text_font",
+        "label": "Font",
+        "info": "Selecting different fonts can affect the speed of your online store. Learn more about [system fonts.](https:\/\/help.shopify.com\/en\/manual\/online-store\/os\/store-speed\/improving-speed#fonts)",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "range",
+        "id": "text_font_size_mobile",
+        "label": "Base size (mobile)",
+        "min": 11,
+        "max": 20,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "text_font_size_desktop",
+        "label": "Base size (tablet and desktop)",
+        "min": 11,
+        "max": 20,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "min": -5,
+        "max": 10,
+        "step": 0.5,
+        "unit": "%",
+        "id": "text_font_letter_spacing",
+        "label": "Body letter spacing",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "name": "Currency format",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Currency codes"
+      },
+      {
+        "type": "paragraph",
+        "content": "Cart and checkout total prices always show currency codes. Example: $1.00 USD."
+      },
+      {
+        "type": "checkbox",
+        "id": "currency_code_enabled",
+        "label": "Show currency codes",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Animation",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Users who configured their preferences to minimize non-essential motion will automatically experience reduced animations."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_page_transition",
+        "label": "Show page transition",
+        "info": "Fade in and out when the page changes.",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "zoom_image_on_hover",
+        "label": "Zoom image on hover",
+        "info": "Various images are zoomed when hovered.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "reduce_drawer_animation",
+        "label": "Reduce drawer animation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "reduce_menu_animation",
+        "label": "Reduce header menu animation",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "heading_apparition",
+        "label": "Heading apparition",
+        "info": "Line by line apparition can't be used for gradient heading. [Learn more](https:\/\/support.maestrooo.com\/article\/299-limitation-for-gradients-on-impact-theme)",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "fade",
+            "label": "Fade"
+          },
+          {
+            "value": "split_fade",
+            "label": "Line by line, fade"
+          },
+          {
+            "value": "split_clip",
+            "label": "Line by line, clipped"
+          },
+          {
+            "value": "split_rotation",
+            "label": "Line by line, rotated"
+          }
+        ],
+        "default": "split_rotation"
+      }
+    ]
+  },
+  {
+    "name": "Color swatch",
+    "settings": [
+      {
+        "type": "select",
+        "id": "color_swatch_style",
+        "label": "Style",
+        "options": [
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "rectangle",
+            "label": "Rectangle"
+          },
+          {
+            "value": "round",
+            "label": "Round"
+          }
+        ],
+        "default": "round"
+      },
+      {
+        "type": "textarea",
+        "id": "color_swatch_config",
+        "label": "Configuration",
+        "placeholder": "Red:#ff0000\nGreen:#00ff00\nBlue:#0000ff",
+        "info": "Each rule must be in its own line. [Learn more](https:\/\/support.maestrooo.com\/article\/80-product-uploading-custom-color-for-color-swatch) about the exact naming convention."
+      }
+    ]
+  },
+  {
+    "name": "Product card",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_secondary_image",
+        "label": "Show secondary image on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quick_buy",
+        "label": "Show quick buy",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_rating",
+        "label": "Show product rating",
+        "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/en\/manual\/products\/product-reviews\/installation)",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "product_rating_mode",
+        "label": "Show product rating as...",
+        "options": [
+          {
+            "value": "rating",
+            "label": "Average rating (e.g. \"4.5\")"
+          },
+          {
+            "value": "count",
+            "label": "Count (e.g. \"3 reviews\")"
+          }
+        ],
+        "default": "rating"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sold_out_badge",
+        "label": "Show sold out badge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_discount",
+        "label": "Show discount badge",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "discount_mode",
+        "label": "Show discount as...",
+        "options": [
+          {
+            "value": "percentage",
+            "label": "Percentage"
+          },
+          {
+            "value": "saving",
+            "label": "Saving"
+          }
+        ],
+        "default": "saving"
+      },
+      {
+        "type": "select",
+        "id": "product_color_display",
+        "label": "Color display mode",
+        "info": "Variant images are hidden on mobile and small screens.",
+        "options": [
+          {
+            "value": "hide",
+            "label": "Hide"
+          },
+          {
+            "value": "count",
+            "label": "Count"
+          },
+          {
+            "value": "swatch",
+            "label": "Swatch"
+          },
+          {
+            "value": "variant",
+            "label": "Variant image"
+          }
+        ],
+        "default": "count"
+      },
+      {
+        "type": "select",
+        "id": "product_image_aspect_ratio",
+        "label": "Product image size",
+        "options": [
+          {
+            "value": "natural",
+            "label": "Natural"
+          },
+          {
+            "value": "short",
+            "label": "Short (4:3)"
+          },
+          {
+            "value": "square",
+            "label": "Square (1:1)"
+          },
+          {
+            "value": "tall",
+            "label": "Tall (2:3)"
+          },
+          {
+            "value": "short_crop",
+            "label": "Short (4:3) - fill card"
+          },
+          {
+            "value": "square_crop",
+            "label": "Square (1:1) - fill card"
+          },
+          {
+            "value": "tall_crop",
+            "label": "Tall (2:3) - fill card"
+          }
+        ],
+        "default": "natural"
+      },
+      {
+        "type": "select",
+        "id": "product_info_alignment",
+        "label": "Product info alignment",
+        "options": [
+          {
+            "value": "start",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          }
+        ],
+        "default": "start"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "popover",
+            "label": "Confirmation popup"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ],
+        "default": "popover"
+      },
+      {
+        "type": "select",
+        "id": "cart_icon",
+        "label": "Cart icon",
+        "options": [
+          {
+            "value": "shopping_basket",
+            "label": "Shopping basket"
+          },
+          {
+            "value": "tote_bag",
+            "label": "Tote bag"
+          },
+          {
+            "value": "shopping_cart",
+            "label": "Shopping cart"
+          }
+        ],
+        "default": "shopping_basket"
+      },
+      {
+        "type": "url",
+        "id": "cart_empty_button_link",
+        "label": "Empty button link",
+        "default": "\/collections\/all"
+      },
+      {
+        "type": "header",
+        "content": "Free shipping bar",
+        "info": "Show a shipping bar advancement on cart page and cart drawer. Configure your [shipping rates](\/admin\/settings\/shipping) to match the amount."
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_free_shipping_threshold",
+        "label": "Show shipping bar",
+        "default": false
+      },
+      {
+        "type": "number",
+        "id": "cart_free_shipping_threshold",
+        "label": "Free shipping minimum amount",
+        "info": "Indicate the value in your store main currency.",
+        "default": 50
+      },
+      {
+        "type": "header",
+        "content": "Key By Photo Opt-In"
+      },
+      {
+        "type": "checkbox",
+        "id": "key_by_photo_opt_in",
+        "label": "Enable",
+        "default": true,
+        "info": "Add opt-in to line items missing their associated Key By Photo product"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "key_by_photo_opt_in_text",
+        "label": "Text",
+        "default": "Would you like your key blade to arrive already cut to fit your vehicle?"
+      },
+      {
+        "type": "text",
+        "id": "key_by_photo_opt_in_yes",
+        "label": "Yes CTA Text",
+        "default": "Yes",
+        "info": "Adds associated Key By Photo to cart"
+      },
+      {
+        "type": "text",
+        "id": "key_by_photo_opt_in_no",
+        "label": "No CTA Text",
+        "default": "No thanks",
+        "info": "Dismisses Opt-In with line item property to prevent it from re-appearing"
+      },
+      {
+        "type": "header",
+        "content": "Proof of Ownership Warning"
+      },
+      {
+        "type": "checkbox",
+        "id": "proof_of_ownership_warning",
+        "label": "Enable",
+        "default": true,
+        "info": "Add warning to line items that require proof of ownership"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "proof_of_ownership_warning_text",
+        "label": "Warning Text",
+        "default": "<strong>NOTICE: <\/strong>Proof of ownership is required for this key. Please upload images below."
+      },
+      {
+        "type": "header",
+        "content": "Key By Photo Warning"
+      },
+      {
+        "type": "checkbox",
+        "id": "key_by_photo_warning",
+        "label": "Enable",
+        "default": true,
+        "info": "Add warning to Key By Photo line items"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "key_by_photo_warning_text",
+        "label": "Warning Text",
+        "default": "<strong>NOTICE: <\/strong>All keys will be cut. If you need some uncut keys, place a separate order."
+      },
+      {
+        "type": "header",
+        "content": "Programmer Only Warning"
+      },
+      {
+        "type": "checkbox",
+        "id": "programmer_only_warning",
+        "label": "Enable",
+        "default": true,
+        "info": "Add warning if only Programmer is in cart"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "programmer_only_warning_text",
+        "label": "Warning Text",
+        "default": "<strong>IMPORTANT: <\/strong>Don't forget your keys or fobs. You have a key programmer in your cart but nothing to program. We want to help you make a spare. <a href=\"\/pages\/unlock-adventure\" title=\"Unlock Adventure\">Find my key<\/a>"
+      },
+      {
+        "type": "header",
+        "content": "Programmer Delete Confirmation"
+      },
+      {
+        "type": "checkbox",
+        "id": "programmer_delete_confirmation",
+        "label": "Enable",
+        "default": true,
+        "info": "Add confirmation message if Programmer is removed from cart"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "programmer_delete_text",
+        "label": "Confirmation Text",
+        "default": "Programming equipment is required to make a spare key at home. Only remove if you have another way to program it."
+      },
+      {
+        "type": "text",
+        "id": "programmer_delete_confirm",
+        "label": "Confirm CTA Text",
+        "default": "Remove",
+        "info": "Removes Programmer from cart"
+      },
+      {
+        "type": "text",
+        "id": "programmer_delete_cancel",
+        "label": "Cancel CTA Text",
+        "default": "Cancel",
+        "info": "Dismiss confirmation, do not remove from cart"
+      },
+      {
+        "type": "header",
+        "content": "Non Stepper Products Warning"
+      },
+      {
+        "type": "checkbox",
+        "id": "non_stepper_warning",
+        "label": "Enable",
+        "default": true,
+        "info": "Add warning if items in cart were not added through the stepper"
+      },
+      {
+        "type": "text",
+        "id": "non_stepper_warning_text",
+        "label": "Warning Text",
+        "default": "Are you sure you have the correct products? Looks like you did not complete all questions to find the items guranteed to work for your vehicle."
+      },
+      {
+        "type": "url",
+        "id": "non_stepper_warning_cta_link",
+        "label": "CTA Link"
+      },
+      {
+        "type": "text",
+        "id": "non_stepper_warning_cta_text",
+        "label": "CTA Text",
+        "default": "Go to stepper"
+      },
+      {
+        "type": "header",
+        "content": "Normal/High Security Warning"
+      },
+      {
+        "type": "checkbox",
+        "id": "normal_high_security_warning",
+        "label": "Enable",
+        "default": true,
+        "info": "Add warning if normal and high security are in cart"
+      },
+      {
+        "type": "text",
+        "id": "normal_security_tag",
+        "label": "Normal Security Product Tag",
+        "default": "SECKBP"
+      },
+      {
+        "type": "text",
+        "id": "high_security_tag",
+        "label": "High Security Product Tag",
+        "default": "HSCKBP"
+      },
+      {
+        "type": "textarea",
+        "id": "high_security_warning_text",
+        "label": "Warning Text",
+        "default": "Warning: To order keys for multiple vehicles, please place one order per vehicle."
+      },
+      {
+        "type": "header",
+        "content": "Product Non Programmable Warning"
+      },
+      {
+        "type": "checkbox",
+        "id": "non_programmable_warning",
+        "label": "Enable",
+        "default": true,
+        "info": "Add warning if product is not programmable"
+      },
+      {
+        "type": "text",
+        "id": "non_programmable_tag",
+        "label": "Non programmable tag",
+        "default": "DIY"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "non_programmable_warning_text",
+        "label": "Warning Text",
+        "default": "<strong>REMINDER: </strong>This item can not be programmed at home. You must take it to a local locksmith or car dealership to get it programmed"
+      },
+      {
+        "type": "header",
+        "content": "Multiple Keys Error Message"
+      },
+      {
+        "type": "checkbox",
+        "id": "multiple_keys_error",
+        "label": "Enable",
+        "default": true,
+        "info": "Add warning and disable checkout button if cart contains Key By Photo and keys for multiple vehicles"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "multiple_keys_error_text",
+        "label": "Error Text",
+        "default": "<strong>ERROR: </strong>Orders can only contain keys for one vehicle. Please place separate orders for mutliple vehicles."
+      },
+       
+      {
+        "type": "header",
+        "content": "Magical Fees App"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_magical_fees_widget",
+        "label": "Enable",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "magical_fees_widget_text",
+        "label": "Widget Text",
+        "default": "This cart includes rental products which require a deposit of FEES_TOTAL. This will be refunded to you upon return to Tom's Key using the included pre-paid shipping label.",
+        "info": "FEES_TOTAL is replaced by real fee value"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Accounts"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter",
+        "label": "X (formerly Twitter)"
+      },
+      {
+        "type": "url",
+        "id": "social_threads",
+        "label": "Threads"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest",
+        "label": "Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_vimeo",
+        "label": "Vimeo"
+      },
+      {
+        "type": "url",
+        "id": "social_whatsapp",
+        "label": "WhatsApp"
+      },
+      {
+        "type": "url",
+        "id": "social_tumblr",
+        "label": "Tumblr"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok"
+      },
+      {
+        "type": "url",
+        "id": "social_linkedin",
+        "label": "LinkedIn"
+      },
+      {
+        "type": "url",
+        "id": "social_snapchat",
+        "label": "Snapchat"
+      },
+      {
+        "type": "url",
+        "id": "social_fancy",
+        "label": "Fancy"
+      },
+      {
+        "type": "url",
+        "id": "social_wechat",
+        "label": "WeChat"
+      },
+      {
+        "type": "url",
+        "id": "social_reddit",
+        "label": "Reddit"
+      },
+      {
+        "type": "url",
+        "id": "social_line",
+        "label": "LINE"
+      },
+      {
+        "type": "url",
+        "id": "social_spotify",
+        "label": "Spotify"
+      },
+      {
+        "type": "url",
+        "id": "social_21buttons",
+        "label": "21 Buttons"
+      }
+    ]
+  },
+  {
+    "name": "Key Finder",
+    "settings": [
+      {
+        "type": "text",
+        "id": "key_product_types",
+        "label": "Key product types",
+        "default": "Combo Key,ComboKey,Emergency Blade,SmartKey,Transponder,Kit",
+        "info": "Comma separated list of product types that are keys"
+      },
+      {
+        "type": "text",
+        "id": "fob_product_types",
+        "label": "Fob product types",
+        "default": "FOB,FOBIK",
+        "info": "Comma separated list of product types that are fobs"
+      },
+      {
+        "type": "text",
+        "id": "programmer_product_types",
+        "label": "Programmer product types",
+        "default": "Programmer",
+        "info": "Comma separated list of product types that are programmers"
+      },
+      {
+        "type": "text",
+        "id": "kit_product_types",
+        "label": "Kit product types",
+        "default": "Kit",
+        "info": "Comma separated list of product types that are kits"
+      }
+    ]
+  },
+  {
+    "name": "Proof of Ownership",
+    "settings": [
+      {
+        "type": "text",
+        "id": "proof_of_ownership_cart_attribute",
+        "label": "Cart attribute prefix",
+        "default": "proof_of_ownership_image"
+      },
+      {
+        "type": "number",
+        "id": "proof_of_ownership_max_image_count",
+        "label": "Max image count",
+        "default": 10
+      }
+    ]
+  },
+  {
+    "name": "Key By Photo",
+    "settings": [
+      {
+        "type": "text",
+        "id": "key_by_photo_product_tag",
+        "label": "Product Tag",
+        "default": "IsKeyByPhoto"
+      },
+      {
+        "type": "text",
+        "id": "key_by_photo_cart_attribute",
+        "label": "Cart Attribute",
+        "default": "key_by_photo_image"
+      },
+      {
+        "type": "number",
+        "id": "key_by_photo_max_image_count",
+        "label": "Max image count",
+        "default": 10
+      },
+      {
+        "type": "header",
+        "content": "HS Laser Cut"
+      },
+      {
+        "type": "text",
+        "id": "product_tag_laser",
+        "label": "Product Tag",
+        "default": "KBP-HS-Laser"
+      },
+      {
+        "type": "product",
+        "id": "product_laser",
+        "label": "Product"
+      },
+      {
+        "type": "header",
+        "content": "Standard Edge Cut"
+      },
+      {
+        "type": "text",
+        "id": "product_tag_edge",
+        "label": "Product Tag",
+        "default": "KBP-Standard-Edge"
+      },
+      {
+        "type": "product",
+        "id": "product_edge",
+        "label": "Product"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Image",
+        "info": "180 x 180px .png recommended"
+      }
+    ]
+  }
+]

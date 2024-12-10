@@ -1,0 +1,88 @@
+{%- unless request.page_type == 'captcha' or section.settings.show_only_on_index and request.page_type != 'index' -%}
+  <returning-customer-popup id="returning-customer-popup--{{ section.id }}"
+    class="returning-customer-popup drawer"
+    open-from="left"
+    {% if section.settings.show_only_once == true %}only-once{% endif %} 
+    apparition-delay="{{ section.settings.apparition_delay }}"
+    handle-section-events
+    data-returning-customer-popup
+  >
+    {% if section.settings.image != blank %}
+      <div class="returning-customer-popup__image">
+        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+      </div>
+    {% endif %}
+
+    <div class="returning-customer-popup__container">
+      <h2 class="returning-customer-popup__title h3">
+        {{- section.settings.title -}}
+      </h2>
+      <p>{{- section.settings.copy -}}</p>
+      <button class="returning-customer-popup__cta button"
+        type="button"
+        data-returning-customer-popup-cta
+      >
+        {{- section.settings.cta_text -}}
+      </button>
+    </div>
+  </returning-customer-popup>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Returning customer popup",
+  "class": "shopify-section--popup",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Customers who return to the site after being in the stepper will be prompted to continue where they left off"
+    },
+    {
+      "type": "range",
+      "id": "apparition_delay",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "sec",
+      "label": "Delay until the popup appears",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_on_index",
+      "label": "Show only on home page",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_once",
+      "label": "Show once to visitors",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1000 x 600"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Welcome back!"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Continue where you left off"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Continue"
+    }
+  ]
+}
+{% endschema %}

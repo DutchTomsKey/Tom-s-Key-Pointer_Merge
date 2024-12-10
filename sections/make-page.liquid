@@ -1,0 +1,169 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --page-max-width: {{ section.settings.content_width }};
+  }
+  .models-list {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 0 20px;
+  }
+  .model-item {
+    background-size: cover;
+    min-height: 200px;
+    background-color: #fff;
+    box-shadow: 1px 2px 4px #00000029;
+    padding: 0 40px;
+  }
+  .model-item img {
+    width: 100%;
+  }
+  .models-list h5 {
+    font-size: 30px;
+    text-align: left;
+    font-weight: bold;
+  }
+</style>
+
+<div class="hero">
+    <div class="container">
+        <div class="page-spacer">
+            <div class="page">
+            <h1 class="h1 text-center">{{ page.title }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="models-list">
+  <div id="cloner" class="model-item">
+    <img src="https://cdn.shopify.com/s/files/1/0831/9189/0202/files/default-truck.png?v=1706680641" alt="">
+    <h5>Astro</h5>
+  </div>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    const brand = "{{ page.title | downcase }}";
+    $('html, body').animate({
+              scrollTop: 0
+    }, 10);
+  	
+    $.ajax({
+      dataType: "json",
+      url: "{{ 'cars-tomskey.json' | asset_url }}",
+      dataType: 'JSON',
+      success: function(data) {
+                  console.log("test me out");
+        const queryString = window.location.search;
+      	const urlParams = new URLSearchParams(queryString);
+        //const brand = urlParams.get('brand');
+      
+        var brand_data = null;
+      
+        data.forEach( function( make, idx ){
+          if( make.value == brand ){
+      		brand_data = make;
+            return;
+          }
+        });
+    
+    	$('.brand-name').html(brand.toUpperCase());
+        $('.brand-name').fadeIn();
+    	$('.brand-description').fadeIn();
+    
+    	//$cars.sort((a, b) => (a.value > b.value) ? 1 : -1);
+    	brand_data.models.sort((a, b) => (a.value > b.value) ? 1 : -1);
+        brand_data.models.forEach(function( model, idx ){
+          var brand = $('#brand_clone').clone();
+          brand.removeAttr('id');
+          brand.find('h1').attr('name',model.value);
+          brand.find('h1').attr('id','model_' + model.value);
+          brand.find('h1').html(brand_data.label + " " + model.label);
+          model.years.sort((a, b) => (a.name > b.name) ? 1 : -1);
+          model.years.forEach(function( year, idx2 ){
+            if( year.is_redirect ) {
+              return;
+            }
+          	var link = brand.find('#link_clone').clone();
+            link.removeAttr('id');
+            link.find('a').html(brand_data.label + " " + model.label + " " + year.name);
+            link.find('a').attr('href',year.url.replace("https://tomskey.com","{{ shop.url }}"));
+            link.find('a').prop('href',year.url.replace("https://tomskey.com","{{ shop.url }}"));
+            brand.find('.brand-links').append(link);
+          });
+          brand.find('#link_clone').remove();
+          $('.branded-content').append(brand);
+          brand.show();
+        });
+    
+    	var $hash = window.location.hash.substr(1);
+    
+    	console.log('test');
+
+        setTimeout(function(){
+          	$('.page-brand').fadeIn();
+        	$('.page-loader').fadeOut();
+        	$('html, body').animate({
+              scrollTop: $("#" + "model_" + $hash).offset().top - 300
+          	}, 1000);
+        },1000);
+      }
+    });
+  
+  	$.ajax({
+      dataType: "json",
+      url: "{{ 'car-banners.json?vasdkasbkjdbsa' | asset_url }}",
+      dataType: 'JSON',
+      success: function(banners) {
+      	let $banner = "";
+      	banners.forEach( function( bnr, idx ){
+          if( banners[idx][brand] !== undefined ){
+      		$banner = banners[idx][brand];
+            return;
+          }
+        });
+		$('.hero').css('background-image','url(' + $banner + ')')
+      }
+    });
+ 
+  });
+</script>
+{% schema %}
+{
+  "name": "Page",
+  "class": "shopify-section--main-page",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "options": [
+        {
+          "value": "60ch",
+          "label": "Small"
+        },
+        {
+          "value": "80ch",
+          "label": "Medium"
+        },
+        {
+          "value": "100ch",
+          "label": "Large"
+        },
+        {
+          "value": "120ch",
+          "label": "X-Large"
+        },
+        {
+          "value": "100%",
+          "label": "Full width"
+        }
+      ],
+      "default": "80ch"
+    }
+  ]
+}
+{% endschema %}

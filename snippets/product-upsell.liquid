@@ -1,0 +1,81 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+PRODUCT UPSELL COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used in product info as a product block
+
+********************************************
+Supported variables
+********************************************
+
+* product: the upsell product (required)
+* title: defaults to product title
+* copy: text displayed under title
+* image: defaults to product image (dimensions: 218 x 296)
+* class: an extra class added on the container
+* disable_atc: (boolean) if true ATC button is disabled if product already exists in cart
+{%- endcomment -%}
+
+{%- if product and product.available -%}
+  {%- liquid
+    assign upsell_item_in_cart = false
+    for item in cart.items
+      if item.product.handle == product.handle
+        assign upsell_item_in_cart = true
+        break
+      endif
+    endfor 
+  -%}
+  <div class="product-upsell {{ class }}">
+    <div class="product-upsell__container">
+      {%- assign upsell_image = image | default: product.featured_image -%}
+      <div class="product-upsell__image">
+        <a href="{{ product.url }}" title="{{ title | default: product.title }}">
+          {{- upsell_image | image_url: width: 218 | image_tag: loading: 'lazy' -}}
+        </a>
+      </div>
+      <div class="product-upsell__content">
+        <div class="product-upsell__info">
+          <a href="{{ product.url }}" title="{{ title | default: product.title }}">
+            <h3 class="product-upsell__title h5">
+              {{- title | default: product.title -}}
+            </h3>
+          </a>
+          {%- render 'price-list', 
+            variant: product.selected_or_first_available_variant, 
+            form_id: product_form_id, 
+            block: block 
+          -%}
+          {%- if copy -%}
+            <p class="product-upsell__copy">
+              {{- copy -}}
+            </p>
+          {%- endif -%}
+        </div>
+        <div class="product-upsell__cta">
+          {%- assign quick_add_label = 'product.general.add_to_cart_short' | t -%}
+          {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
+            {%- form 'product', product, is: 'product-form', data-product-upsell-form: '' -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              {%- if disable_atc and upsell_item_in_cart -%}
+                {%- render 'button', type: 'submit', content: quick_add_label, disabled: true, subdued: true -%}
+              {%- else -%}
+                {%- render 'button', type: 'submit', content: quick_add_label -%}
+              {%- endif -%}
+            {%- endform -%}
+          {%- else -%}
+            {%- capture quick_buy_id -%}quick-buy-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+            {%- if disable_atc and upsell_item_in_cart -%}
+              {%- render 'button', content: quick_add_label, aria_controls: quick_buy_id, disabled: true, subdued: true -%}
+            {%- else -%}
+              {%- render 'button', content: quick_add_label, aria_controls: quick_buy_id -%}
+            {%- endif -%}
+            <quick-buy-drawer id="{{ quick_buy_id }}" header-bordered open-from="bottom" handle="{{ product.handle }}" role="region" aria-live="polite" class="quick-buy-drawer drawer">
+            </quick-buy-drawer>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

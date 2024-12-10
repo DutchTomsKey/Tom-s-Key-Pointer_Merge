@@ -1,0 +1,27 @@
+<h2>Hey</h2>
+{%- liquid 
+  assign proof_of_ownership_required = false
+
+  for item in cart.items
+    if item.product.metafields.tomskey.verification == true
+      assign proof_of_ownership_required = true
+      break
+    endif
+  endfor
+
+  unless proof_of_ownership_required
+    continue
+  endunless
+-%}
+
+<cart-key-by-photo class="cart-key-by-photo cart-key-by-photo--{{ context }}" 
+  data-cart-key-by-photo-cart-attribute="{{ settings.proof_of_ownership_cart_attribute }}"
+  data-cart-key-by-photo-max-image-count="{{ settings.proof_of_ownership_max_image_count }}">
+  <p class="cart-key-by-photo__heading h6">
+    {{- 'cart.proof_of_ownership.upload_heading' | t -}}
+  </p>
+  <div class="cart-key-by-photo__widget">
+    {% comment %} Upload-Lift widget {% endcomment %}
+    <div class="upload-lift-cart-key-by-photo"></div>
+  </div>
+</cart-key-by-photo>

@@ -1,0 +1,76 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+KEY BY PHOTO POPUP COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used in product info as a product block
+
+********************************************
+Supported variables
+********************************************
+
+* product: the key by photo product (required)
+* title: defaults to product title
+* copy: text displayed under title
+* image: defaults to product image (dimensions: 500 x 400)
+{%- endcomment -%}
+
+{%- if product and product.available -%}
+  {%- liquid
+    assign upsell_item_in_cart = false
+    for item in cart.items
+      if item.product.handle == product.handle
+        assign upsell_item_in_cart = true
+        break
+      endif
+    endfor 
+  -%}
+  {%- unless upsell_item_in_cart -%}
+    <x-drawer id="key-by-photo-popup--{{ section.id }}"
+      class="key-by-photo-popup drawer drawer--lg"
+      open-from="bottom"
+      data-key-by-photo-popup>
+      <div class="key-by-photo-popup__container">
+        {%- assign key_by_photo_image = image | default: product.featured_image -%}
+        <div class="key-by-photo-popup__image">
+          <a href="{{ product.url }}" title="{{ title | default: product.title }}">
+            {{- key_by_photo_image | image_url: width: 500 | image_tag: loading: 'lazy' -}}
+          </a>
+        </div>
+        <div class="key-by-photo-popup__content">
+          <div class="key-by-photo-popup__info">
+            <h3 class="key-by-photo-popup__title h5">
+              {{- title | default: product.title -}}
+            </h3>
+            {%- if copy -%}
+              <p class="key-by-photo-popup__copy">
+                {{- copy -}}
+              </p>
+            {%- endif -%}
+          </div>
+          <div class="key-by-photo-popup__cta">
+            {%- assign quick_add_label = 'product.general.add_to_cart_button' | t -%}
+            {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
+              {%- form 'product', product, is: 'product-form', data-key-by-photo-popup-form: '' -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                {%- render 'button', type: 'submit', content: quick_add_label, size: 'lg' -%}
+              {%- endform -%}
+            {%- else -%}
+              {%- capture quick_buy_id -%}quick-buy-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+              {%- render 'button', content: quick_add_label, aria_controls: quick_buy_id, size: 'lg' -%}
+              <quick-buy-drawer id="{{ quick_buy_id }}" header-bordered open-from="bottom" handle="{{ product.handle }}" role="region" aria-live="polite" class="quick-buy-drawer drawer">
+              </quick-buy-drawer>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </x-drawer>
+    <button type="button"
+      class="hidden"
+      aria-controls="key-by-photo-popup--{{ section.id }}"
+      aria-expanded="false"
+      aria-hidden="true"
+      data-key-by-photo-popup-trigger>
+    </button>
+  {%- endunless -%}
+{%- endif -%}

@@ -1,0 +1,59 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+KEY BY PHOTO CART OPT-IN COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used in cart line items
+
+********************************************
+Supported variables
+********************************************
+
+* product: the key by photo product (required)
+* line_item: the cart line item (required)
+{%- endcomment -%}
+
+<script src="{{ 'key-by-photo-cart-opt-in.js' | asset_url }}" defer="defer"></script>
+
+{% comment %} Don't render opt-in if line item has '_no-key-by-photo' property {% endcomment %}
+{%- liquid
+  if line_item.properties['_no-key-by-photo']
+    continue
+  endif
+-%}
+
+{%- if product and product.available -%}
+  {%- liquid
+    assign upsell_item_in_cart = false
+    for item in cart.items
+      if item.product.handle == product.handle
+        assign upsell_item_in_cart = true
+        break
+      endif
+    endfor 
+  -%}
+  {%- unless upsell_item_in_cart -%}
+    <key-by-photo-cart-opt-in class="key-by-photo-cart-opt-in"
+      data-line-item-key="{{ line_item.key }}">
+      <p class="key-by-photo-cart-opt-in__text text-sm">
+        {{- settings.key_by_photo_opt_in_text -}}
+      </p>
+      <div class="key-by-photo-cart-opt-in__actions">
+        {%- assign quick_add_label = settings.key_by_photo_opt_in_yes -%}
+        {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
+          {%- form 'product', product, is: 'product-form' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="quantity" value="{{ line_item.quantity }}">
+            {%- render 'button', type: 'submit', content: quick_add_label, size: 'sm' -%}
+          {%- endform -%}
+        {%- else -%}
+          {%- capture quick_buy_id -%}quick-buy-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+          {%- render 'button', content: quick_add_label, aria_controls: quick_buy_id, size: 'sm' -%}
+          <quick-buy-drawer id="{{ quick_buy_id }}" header-bordered open-from="bottom" handle="{{ product.handle }}" role="region" aria-live="polite" class="quick-buy-drawer drawer">
+          </quick-buy-drawer>
+        {%- endif -%}
+        {%- render 'button', content: settings.key_by_photo_opt_in_no, size: 'sm', subdued: true, extra_attributes: 'data-key-by-photo-cart-opt-out' -%}
+      </div>
+    </key-by-photo-cart-opt-in>
+  {%- endunless -%}
+{%- endif -%}

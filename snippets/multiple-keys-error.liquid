@@ -1,0 +1,42 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+MULTIPLE KEYS ERROR COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used in cart
+
+{%- endcomment -%}
+
+{% comment %} 
+  TODO: 
+    alter vehicle check to use MMY line item props (currently using product handle)
+    change 'item.product.handle to be 'make--model--year'
+{% endcomment %}
+
+{%- liquid
+  assign key_by_photo_product_in_cart = false
+  assign multiple_vehicles = false
+  assign item_mmy_values = ''
+
+  for item in cart.items
+    if item.product.tags contains settings.product_tag_laser or item.product.tags contains settings.product_tag_edge
+      assign mmy_value = item.properties._make_model_year | default: item.product.handle
+      assign item_mmy_values = item_mmy_values | append: '|' | append: mmy_value
+    endif
+
+    if item.product.tags contains settings.key_by_photo_product_tag
+      assign key_by_photo_product_in_cart = true
+      break
+    endif
+  endfor
+
+  assign item_mmy_values = item_mmy_values | remove_first: '|' | split: '|' | uniq
+  if item_mmy_values.size > 1
+    assign multiple_vehicles = true
+  endif
+-%}
+
+{%- if key_by_photo_product_in_cart and multiple_vehicles -%}
+  <script src="{{ 'multiple-keys-error.js' | asset_url }}" defer="defer"></script>
+  <multiple-keys-error class='prose text-sm text-error'>{{ settings.multiple_keys_error_text }}</multiple-keys-error>
+{%- endif -%}

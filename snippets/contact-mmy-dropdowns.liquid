@@ -1,0 +1,44 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+CONTACT MAKE/MODEL/YEAR DROPDOWNS COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used in contact section as a block type
+
+{%- endcomment -%}
+
+<script src="{{ 'contact-mmy-dropdowns.js' | asset_url }}" defer="defer"></script>
+
+<contact-mmy-dropdowns class="fieldset">
+  <input type="hidden" name="contact[stepper-progress]" data-stepper-progress-input value="">
+
+  {% comment %} Make {% endcomment %}
+  {%- assign make_name = 'contact[make]' -%}
+
+  {%- capture make_options -%}
+    <option value="" disabled selected></option>
+  {%- endcapture -%}
+
+  {%- assign make_label = 'contact.form.make' | t -%}
+  {%- render 'select', options: make_options, name: make_name, label: make_label, required: true, block: block -%}
+
+  {% comment %} Model {% endcomment %}
+  {%- assign model_name = 'contact[model]' -%}
+
+  {%- capture model_options -%}
+    <option value="" disabled selected></option>
+  {%- endcapture -%}
+
+  {%- assign model_label = 'contact.form.model' | t -%}
+  {%- render 'select', options: model_options, name: model_name, label: model_label, required: true, block: block -%}
+
+  {% comment %} Year {% endcomment %}
+  {%- assign year_name = 'contact[year]' -%}
+
+  {%- capture year_options -%}
+    <option value="" disabled selected></option>
+  {%- endcapture -%}
+
+  {%- assign year_label = 'contact.form.year' | t -%}
+  {%- render 'select', options: year_options, name: year_name, label: year_label, required: true, block: block -%}
+</contact-mmy-dropdowns>

@@ -1,0 +1,29 @@
+{%- liquid 
+  assign proof_of_ownership_required = false
+
+  for item in cart.items
+    if item.product.metafields.tomskey.verification == true
+      assign proof_of_ownership_required = true
+    endif
+  endfor
+
+  unless proof_of_ownership_required
+    continue
+  endunless
+-%}
+
+<cart-key-by-photo class="cart-key-by-photo cart-key-by-photo--{{ context }}"
+  data-upload-lift-proof-of-ownership
+  data-cart-key-by-photo-cart-attribute="{{ settings.proof_of_ownership_cart_attribute }}"
+  data-cart-key-by-photo-max-image-count="{{ settings.proof_of_ownership_max_image_count }}"
+>
+  <p class="cart-key-by-photo__heading h6">
+    {{ 'cart.key_by_photo.upload_proof_heading' | t }}
+  </p>
+  <div class="cart-key-by-photo__widget">
+    {%- form 'cart', cart -%}
+      {% comment %} Upload-Lift widget {% endcomment %}
+      <div class="upload-lift-proof-of-ownership"></div>
+    {%- endform -%}
+  </div>
+</cart-key-by-photo>
